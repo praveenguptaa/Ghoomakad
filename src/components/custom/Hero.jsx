@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from '../ui/button'
+import { Link } from 'react-router-dom'
 
 function Hero() {
   return (
@@ -13,7 +14,9 @@ function Hero() {
       <p className='text-xl text-center text-gray-500'>
         Your personal trip planner and travel curator, creating custom itineraries tailored to your interest abd budget
       </p>
+      <Link to={'/create-trip'}>
       <Button> Get Started, It's Free</Button>
+      </Link>
     </div>
   )
 }
