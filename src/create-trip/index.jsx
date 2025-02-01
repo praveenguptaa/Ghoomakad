@@ -1,9 +1,11 @@
 import React, { useState,useEffect } from 'react'
 import AddressAutocomplete from '@/components/helper/AddressAutocomplete '
 import { Input } from '@/components/ui/input';
-import { SelectBudgetOptions } from '@/constants/options';
+import { AI_PROMPT, SelectBudgetOptions } from '@/constants/options';
 import { SelectTravelsList } from '@/constants/options';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
+import { chatSession } from '@/service/AIModel';
 
 export default function CreateTrip() {
 
@@ -25,11 +27,29 @@ export default function CreateTrip() {
     console.log(formData);
   }, [formData])
   
-  const onGenerateTrip = ()=> {
-    if(formData.noOfDays > 5 || formData.noOfDays < 1 ){
+  const onGenerateTrip = async ()=> {
+    if(!formData.noOfDays || !formData.location || !formData.budget || !formData.traveller){
+      toast('Please fill all details.');
       return;
     }
-    console.log(formData);
+    if(formData.noOfDays > 5 || formData.noOfDays < 1 ){
+      toast('Please enter valid days')
+      return;
+    }
+    
+    const FINAL_PROMPT = AI_PROMPT
+    .replace('{location}',formData.location.description)
+    .replace('{totalDays}',formData.noOfDays)
+    .replace('{traveller}',formData.traveller)
+    .replace('{budget}',formData.budget)
+    .replace('{totalDays}',formData.noOfDays);
+
+    console.log(FINAL_PROMPT);
+
+    const result = await chatSession.sendMessage(FINAL_PROMPT);
+    console.log(result.response.text());
+    
+
   }
 
   return (
@@ -83,9 +103,9 @@ export default function CreateTrip() {
         <div className='grid grid-cols-3 gap-5 mt-5'>
           {SelectTravelsList.map((item, index) => (
             <div key={index}
-            onClick={()=>handlePlaceSelected('traveler',item.people)}
+            onClick={()=>handlePlaceSelected('traveller',item.people)}
              className={`p-4 border rounded-lg hover:shadow-lg cursor-pointer
-              ${formData.traveler == item.people && 'shadow-lg border-black'}
+              ${formData.traveller == item.people && 'shadow-lg border-black'}
              `}>
               <h2 className='text-4xl'>{item.icon}</h2>
               <h2 className='font-bold text-lg'>{item.title}</h2>

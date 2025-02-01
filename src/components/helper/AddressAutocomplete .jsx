@@ -42,7 +42,7 @@ const AddressAutocomplete = ({ onPlaceSelected }) => {
     setInput(suggestion.description);
     setSuggestions([]);
     if (onPlaceSelected) {
-      onPlaceSelected(name,suggestion);
+      onPlaceSelected(name,suggestion); 
     }
   };
 
