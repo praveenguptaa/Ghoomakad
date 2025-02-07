@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 function Hotels({trip}) {
-    const hotels = trip?.tripData?.[0]?.hotelOptions;
+    const hotels = trip?.tripData?.[0]?.travelPlan?.hotels;
     console.log(hotels);
   return (
     <div>
@@ -11,7 +11,7 @@ function Hotels({trip}) {
         { hotels?.length > 0 &&
         hotels.map((hotel,index)=>(
             <Link to={'https://www.google.com/maps/search/?api=1&query='+hotel.hotelName+","+hotel.hotelAddress} target='_blank'>
-            <div className='hover:scale-105 transition-all cursor-pointer'>
+            <div className='hover:scale-105 transition-all cursor-pointer mt-3 my-5'>
                 <img src="/placeholder.png" className='rounded-lg' />
                 <div className='my-2 flex flex-col gap-2'>
                     <h2 className='font-medium'>{hotel?.hotelName}</h2>
