@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URL = `https://maps.gomaps.pro/maps/api/place/textsearch/json?&key=AlzaSyagZVUzZPVyllWU4aG6ldHu02RfFy_87HX`
+const BASE_URL = `https://maps.gomaps.pro/maps/api/place/textsearch/json?&key=AlzaSyZ1jxCj9ZXmb-WW1QGyVAe1WrvDnJl9fXi`
 
 export const GetPlaceDetails = (data) => axios.get(BASE_URL,{
     params: data
